@@ -1,8 +1,29 @@
 # app-spring-api-lab
 
-> Progetto di studio per il flusso di autenticazione/autorizzazione verso **Keycloak** in ambiente **Azure**.
+Backend Spring Boot stateless per un laboratorio Azure con autenticazione tramite Keycloak e deploy cloud-native su Azure.
 
+L’obiettivo del progetto è costruire una piccola architettura realistica:
+
+- Angular SPA per il frontend (ipotesi di frontend)
+- Keycloak come Identity Provider / Authorization Server
+- Spring Boot come Resource Server stateless
+- PostgreSQL managed per Keycloak e dati applicativi
+- Azure Key Vault per i segreti
+- Azure Blob Storage per upload file
+- Azure Application Insights e Log Analytics per osservabilità
+- Azure Container Registry e GitLab CI/CD per deploy containerizzato
 ---
+
+Il progetto usa questo flusso standard per mantenere il backend stateless:
+
+```text
+Ipotizzando un front-end Angular:
+
+1. L'utente effettua il login su Keycloak
+2. Viene restituito un access token JWT
+3. Angular chiama il backend Spring Boot con Authorization: Bearer <token>
+4. L'app Spring Boot valida il token ed esegue la logica richiesta
+```
 
 ## Infrastruttura Azure
 
