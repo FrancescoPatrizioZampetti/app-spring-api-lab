@@ -10,3 +10,25 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
     volumes:
       - ./docker/keycloak/import:/opt/keycloak/data/import:ro
+
+
+# CONFIG PER EXPORT - utilizzare per esportare realm con utenti
+#  services:
+#    keycloak:
+#      image: quay.io/keycloak/keycloak:26.6.2
+#      container_name: keycloak-lab
+#      command: start-dev
+#      ports:
+#        - "127.0.0.1:8080:8080"
+#      environment:
+#        KC_BOOTSTRAP_ADMIN_USERNAME: admin
+#        KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+#      volumes:
+#        - keycloak-lab-data:/opt/keycloak/data
+#        - ./docker/keycloak/export:/opt/keycloak/export
+#
+#  volumes:
+#    keycloak-lab-data:
+#      name: keycloak-lab-data
+
+# docker run --rm -v keycloak-lab-data:/opt/keycloak/data -v %cd%/docker/keycloak/export:/opt/keycloak/export quay.io/keycloak/keycloak:26.6.2 export --dir /opt/keycloak/export --realm spring-api-lab --users realm_file
