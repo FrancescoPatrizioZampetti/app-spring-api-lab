@@ -24,19 +24,31 @@ public class UtenteService {
 
 
     public UtenteResponse aggiornaUtente(@Valid CreaUtenteRequest request) {
-        logger.info("Start creaUtente");
-        Utente nuovoUtente = new Utente(
-                request.getEmail(),
-                request.getUsername()
-        );
+        logger.info("Start aggiornaUtente");
 
-        Utente savedUtente = utenteRepository.save(nuovoUtente);
+        Utente findedUtente = utenteRepository.findByKeycloakId(request.getKeycloakId());
+        if (findedUtente == null) {
+            logger.info("Creo utente - keykloack id: {}", request.getKeycloakId());
+            Utente nuovoUtente = new Utente(
+                    request.getEmail(),
+                    request.getUsername()
+            );
+            findedUtente = utenteRepository.saveAndFlush(nuovoUtente);
+        } else {
+            if( !findedUtente.getEmail().equals(request.getEmail())
+                    || !findedUtente.getUsername().equals(request.getUsername()) ){
+                logger.info("Aggiorno utente - keykloack id: {}", findedUtente.getKeycloakId());
+                findedUtente.setEmail(request.getEmail());
+                findedUtente.setUsername(request.getUsername());
+                findedUtente = utenteRepository.saveAndFlush(findedUtente);
+            }
+        }
 
         UtenteResponse response = new UtenteResponse(
-                savedUtente.getUsername(),
-                savedUtente.getEmail()
+                findedUtente.getUsername(),
+                findedUtente.getEmail()
         );
-        logger.info("End creaUtente");
+        logger.info("End aggiornaUtente");
         return response;
     }
 }

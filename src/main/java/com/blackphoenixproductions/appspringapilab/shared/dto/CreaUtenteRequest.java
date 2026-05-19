@@ -9,4 +9,6 @@ public class CreaUtenteRequest {
     private String username;
     @NotBlank
     private String email;
+    @NotBlank
+    private Long keycloakId;
 }
