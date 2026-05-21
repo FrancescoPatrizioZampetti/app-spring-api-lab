@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface IUtenteRepository extends JpaRepository<Utente, Long> {
 
     Utente findByUsername(String username);
-    Utente findByKeycloakId(Long keycloakId);
+    Utente findByKeycloakId(String keycloakId);
 
 }

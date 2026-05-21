@@ -5,7 +5,7 @@ Backend Spring Boot stateless per un laboratorio Azure con autenticazione tramit
 L’obiettivo del progetto è costruire una piccola architettura realistica:
 
 - Angular SPA per il frontend (ipotesi di frontend)
-- Keycloak come Identity Provider / Authorization Server
+- Keycloak come Identity Provider / Authorization Server (con doppia gestione Microsoft Entra ID)
 - Spring Boot come Resource Server stateless
 - PostgreSQL managed per Keycloak e dati applicativi
 - Azure Key Vault per i segreti
