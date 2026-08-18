@@ -29,17 +29,17 @@ public class UtentiAPIController {
         this.utenteService = utenteService;
     }
 
-    @Operation(summary = "Restituisce l'utente loggato.")
-    @GetMapping(value = "/recupera")
+    @Operation(summary = "Restituisce l'utente autenticato.")
+    @GetMapping(value = "/whoami")
     public UtenteDTO recuperaUtente (Authentication authentication){
-        logger.info("Start recuperaUtente");
+        logger.info("Start whoami");
 
         String keycloakId = SecurityUtils.getKeycloakId(authentication);
         String username = SecurityUtils.getUsername(authentication);
         String email = SecurityUtils.getEmail(authentication);
         List<String> roles = SecurityUtils.getRoles(authentication);
 
-        logger.info("Utente loggato: {}", username);
+        logger.info("Utente logautenticatogato: {}", username);
         logger.info("Email: {}", email);
         logger.info("KeycloakId: {}", keycloakId);
         logger.info("Roles: {}", roles);
@@ -51,7 +51,7 @@ public class UtentiAPIController {
                 null,
                 null
         );
-        logger.info("End recuperaUtente");
+        logger.info("End whoami");
         return utenteDTO;
     }
 
