@@ -11,7 +11,19 @@
 #docker run -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.6.2 start-dev
 #docker run --rm --name keycloak-lab -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin -v ./docker/keycloak/import:/opt/keycloak/data/import:ro quay.io/keycloak/keycloak:26.6.2 start-dev --import-realm
 
-docker compose up
+#docker compose up
 
 # per esportare i dati del realm in un file json
 #docker run --rm -v keycloak-lab-data:/opt/keycloak/data -v %cd%/docker/keycloak/export:/opt/keycloak/export quay.io/keycloak/keycloak:26.6.2 export --dir /opt/keycloak/export --realm spring-api-lab --users realm_file
+
+# creo un immagine docker custom a partire dal DockerFile fornito che importa il realm dal json nel progetto
+docker build -t keycloak-lab:26.6.2 ./docker/keycloak
+
+# eseguo container keycloak (viene eliminato in automatico quando si stoppa --rm)
+docker run --rm --name keycloak-azure-test ^
+  -p 127.0.0.1:8082:8080 ^
+  -e KC_BOOTSTRAP_ADMIN_USERNAME=admin ^
+  -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin ^
+  keycloak-lab:26.6.2
+
+# http://localhost:8082

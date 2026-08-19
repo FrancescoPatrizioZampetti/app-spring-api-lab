@@ -2,16 +2,20 @@
 
 Backend Spring Boot stateless per un laboratorio Azure con autenticazione tramite Keycloak e deploy cloud-native su Azure.
 
-L’obiettivo del progetto è costruire una piccola architettura realistica:
+L’obiettivo del progetto è costruire un piccolo progetto di esempio su azure che simuli il backend di un'applicazione web con un ipotetico front-end angular:
 
-- Angular SPA per il frontend (ipotesi di frontend)
 - Keycloak come Identity Provider / Authorization Server (con doppia gestione Microsoft Entra ID)
 - Spring Boot come Resource Server stateless
-- PostgreSQL managed per Keycloak e dati applicativi
 - Azure Key Vault per i segreti
-- Azure Blob Storage per upload file
-- Azure Application Insights e Log Analytics per osservabilità
-- Azure Container Registry e GitLab CI/CD per deploy containerizzato
+- App Service
+- Azure Container Registry
+- GitLab CI/CD
+
+[//]: # (- Azure Application Insights e Log Analytics per osservabilità)
+
+[//]: # (- PostgreSQL managed per Keycloak e dati applicativi&#41;)
+
+[//]: # (- Azure Blob Storage per upload file&#41;)
 ---
 
 Il progetto usa questo flusso standard per mantenere il backend stateless:
@@ -31,28 +35,41 @@ Ipotizzando un front-end Angular:
 
 ---
 
-### PostgreSQL Flexible Server
-**`pg-spring-api-lab`**
-- `keycloak_db`
-- `app_db`
+[//]: # (### PostgreSQL Flexible Server)
 
----
+[//]: # (**`pg-spring-api-lab`**)
 
-### Azure Container Apps
+[//]: # (- `keycloak_db`)
 
-| Risorsa | Nome |
-|---|---|
-| Container Apps Environment | `cae-spring-api-lab` |
-| Container App | `aca-spring-api-lab` |
+[//]: # (- `app_db`)
 
----
+[//]: # ()
+[//]: # (---)
+
+[//]: # (### Azure Container Apps)
+
+[//]: # ()
+[//]: # (| Risorsa | Nome |)
+
+[//]: # (|---|---|)
+
+[//]: # (| Container Apps Environment | `cae-spring-api-lab` |)
+
+[//]: # (| Container App | `aca-spring-api-lab` |)
+
+[//]: # ()
+[//]: # (---)
 
 ### Azure App Service
+
+Al momento essendo un laboratorio Keycloak e spring-api-lab condividono lo stesso App Service Plan.
+Per semplicità Keycloak viene deployato su un App Service usando un'immagine custom che importa il realm e gli utenti dal json [spring-api-lab-realm.json](docker/keycloak/import/spring-api-lab-realm.json)
 
 | Risorsa | Nome |
 |---|---|
 | App Service Plan | `asp-spring-api-lab` |
 | App Service | `app-spring-api-lab` |
+| App Service | `app-keycloak-lab` |
 
 ---
 
@@ -61,31 +78,38 @@ Ipotizzando un front-end Angular:
 
 ---
 
-### Monitoraggio
+[//]: # (### Monitoraggio)
 
-| Risorsa | Nome |
-|---|---|
-| Application Insights | `appi-spring-api-lab` |
-| Log Analytics Workspace | `law-spring-api-lab` |
+[//]: # ()
+[//]: # (| Risorsa | Nome |)
 
----
+[//]: # (|---|---|)
+
+[//]: # (| Application Insights | `appi-spring-api-lab` |)
+
+[//]: # (| Log Analytics Workspace | `law-spring-api-lab` |)
+
+[//]: # ()
+[//]: # (---)
 
 ### Altre Risorse
 
 | Risorsa | Nome |
 |---|---|
-| Azure Container Registry | `acrspringapilab01` |
+| Azure Container Registry | `acrdevlab01` |
 | Storage Account | `stspringapilab` |
-| Budget Alert | `budget-spring-api-lab` |
+
+[//]: # (| Budget Alert | `budget-spring-api-lab` |)
 
 
 ## Come iniziare
 
-Posizionarsi nella root del progetto ed eseguire:
+Per sviluppo in locale posizionarsi nella root del progetto ed eseguire:
 
 ```bash
 docker compose up -d
 ```
+Verranno avviati i container Docker necessari, keycloack e app-spring-api-lab.
 
 ## Keycloak
 

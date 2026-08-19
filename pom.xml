@@ -194,6 +194,12 @@
             </activation>
         </profile>
         <profile>
+            <id>collaudo</id>
+            <properties>
+                <activatedProperties>collaudo</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
             <id>produzione</id>
             <properties>
                 <activatedProperties>produzione</activatedProperties>
