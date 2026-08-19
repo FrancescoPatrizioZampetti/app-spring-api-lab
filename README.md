@@ -2,7 +2,7 @@
 
 Backend Spring Boot stateless per un laboratorio Azure con autenticazione tramite Keycloak e deploy cloud-native su Azure.
 
-L’obiettivo del progetto è costruire un piccolo progetto di esempio su azure che simuli il backend di un'applicazione web con un ipotetico front-end angular:
+L’obiettivo del progetto è costruire un piccolo progetto di esempio su Azure che simuli il backend di un'applicazione web con un ipotetico front-end angular:
 
 - Keycloak come Identity Provider / Authorization Server (con doppia gestione Microsoft Entra ID)
 - Spring Boot come Resource Server stateless
@@ -16,6 +16,7 @@ L’obiettivo del progetto è costruire un piccolo progetto di esempio su azure 
 [//]: # (- PostgreSQL managed per Keycloak e dati applicativi&#41;)
 
 [//]: # (- Azure Blob Storage per upload file&#41;)
+
 ---
 
 Il progetto usa questo flusso standard per mantenere il backend stateless:
@@ -63,6 +64,7 @@ Ipotizzando un front-end Angular:
 ### Azure App Service
 
 Al momento essendo un laboratorio Keycloak e spring-api-lab condividono lo stesso App Service Plan.
+
 Per semplicità Keycloak viene deployato su un App Service usando un'immagine custom che importa il realm e gli utenti dal json [spring-api-lab-realm.json](docker/keycloak/import/spring-api-lab-realm.json)
 
 | Risorsa | Nome |
@@ -75,6 +77,18 @@ Per semplicità Keycloak viene deployato su un App Service usando un'immagine cu
 
 ### Azure Key Vault
 **`kv-spring-api-lab`**
+
+Per salvare i segreti e non esporli direttamente nel codice.
+
+---
+
+---
+
+### Azure Container Registry
+**`acrdevlab01`**
+
+Utilizzato per il build e il push dei container Docker nelle pipeline di CI/CD.
+In questo caso viene utilizzato per il container di Keycloak.
 
 ---
 
@@ -92,12 +106,13 @@ Per semplicità Keycloak viene deployato su un App Service usando un'immagine cu
 [//]: # ()
 [//]: # (---)
 
-### Altre Risorse
+[//]: # (### Altre Risorse)
 
-| Risorsa | Nome |
-|---|---|
-| Azure Container Registry | `acrdevlab01` |
-| Storage Account | `stspringapilab` |
+[//]: # (| Risorsa | Nome |)
+
+[//]: # (|---|---|)
+
+[//]: # (| Storage Account | `stspringapilab` |)
 
 [//]: # (| Budget Alert | `budget-spring-api-lab` |)
 
