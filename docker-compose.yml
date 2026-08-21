@@ -9,6 +9,8 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      SWAGGER_REDIRECT_URI: http://localhost:8081/swagger-ui/oauth2-redirect.html
+      SWAGGER_WEB_ORIGIN: http://localhost:8081
     volumes:
       - ./docker/keycloak/import:/opt/keycloak/data/import:ro
 
